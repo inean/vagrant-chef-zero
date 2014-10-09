@@ -23,10 +23,12 @@ module VagrantPlugins
             write_knife_config(env)
           end
 
-          # if berkshelf_enabled?(env)
-          #   @key = get_key_path(env)
-          #   set_berkshelf_client_key(@key)
-          # end
+          # Ensure berkshelf plugin is installed
+          return unless defined?(Berkshelf::Vagrant::Version)
+          if berkshelf_enabled?(env) && Berkshelf::Vagrant::VERSION >= '3.0'
+            @key = get_key_path(env)
+            berkshelf_set_client_key(@key)
+          end
         end
 
         def call(env)

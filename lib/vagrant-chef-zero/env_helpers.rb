@@ -109,9 +109,9 @@ module VagrantPlugins
         env[:machine].config.berkshelf.enabled == true && chef_client?(env)
       end
 
-      def set_berkshelf_client_key(value)
-        ObjectSpace.each_object(Berkshelf::Config).each do |o|
-          o.chef.client_key = value
+      def berkshelf_set_client_key(value)
+        ObjectSpace.each_object(Berkshelf::Vagrant::BerksConfig).each do |o|
+          o.chef['client_key'] = value
         end
       end
 

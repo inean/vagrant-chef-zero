@@ -1,3 +1,5 @@
+require 'vagrant/util'
+
 module VagrantPlugins
   module ChefZero
     module ServerHelpers
@@ -56,7 +58,10 @@ module VagrantPlugins
       end
 
       def fork_process(command, host, port, env)
-        IO.popen("#{command} --host #{host} --port #{port} 2>&1 > /dev/null")
+        ruby_bin = Pathname.new(Vagrant::Util::Which.which("ruby")).to_s
+        pid = Process.spawn("#{ruby_bin} #{command} --host #{host} --port #{port}",
+                            :out=>File::NULL, :err=>File::NULL)
+        Process.detach pid
         env[:chef_zero].ui.info("Starting Chef Zero at http://#{host}:#{port}")
       end
 
@@ -94,7 +99,7 @@ module VagrantPlugins
         begin
           TCPSocket.new(ip, port).close
           true
-        rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH
+        rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ENETUNREACH
           false
         end
       end

@@ -40,7 +40,7 @@ module VagrantPlugins
       attr_reader :chef_repo_path
 
       def chef_repo_path=(path)
-        @chef_repo_path = path
+        @chef_repo_path = File.expand_path(path)
         @roles = path_exists?("#{path}/roles") ? "#{path}/roles" : nil
         @environments = path_exists?("#{path}/environments") ? "#{path}/environments" : nil
         @nodes = path_exists?("#{path}/nodes") ? "#{path}/nodes" : nil
@@ -70,14 +70,28 @@ module VagrantPlugins
       def finalize!
         @enabled = true if @enabled == UNSET_VALUE
         @roles = nil if @roles == UNSET_VALUE
+        @roles = expand_paths(@roles) if @roles
         @environments = nil if @environments == UNSET_VALUE
+        @environments = expand_paths(@environments) if @environments
         @nodes = nil if @nodes == UNSET_VALUE
+        @nodes = expand_paths(@nodes) if @nodes
         @cookbooks = nil if @cookbooks == UNSET_VALUE
+        @cookbooks = expand_paths(@cookbooks) if @cookbooks
         @data_bags = nil if @data_bags == UNSET_VALUE
+        @data_bags = expand_paths(@data_bags) if @data_bags
         @chef_repo_path = nil if @chef_repo_path == UNSET_VALUE
         {}
       end
 
+      private
+
+      def expand_paths(attribute)
+        if attribute.kind_of?(Array)
+          attribute.map { |path| File.expand_path(path) }
+        else
+          File.expand_path(attribute)
+        end
+      end
     end
   end
 end

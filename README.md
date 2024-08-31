@@ -1,12 +1,8 @@
-
-NOTE: This version (`0.5.0`) is in beta status as I have not had time to fully test it due to issues with my Vagrant environment (old versions will still be availabe in the `0.4.X` series)
-
-
 # Vagrant-Chef-Zero
-[![Build Status](https://travis-ci.org/andrewgross/vagrant-chef-zero.svg)](https://travis-ci.org/andrewgross/vagrant-chef-zero)
-[![Code Climate](https://codeclimate.com/github/andrewgross/vagrant-chef-zero.png)](https://codeclimate.com/github/andrewgross/vagrant-chef-zero)
-[![Dependency Status](https://gemnasium.com/andrewgross/vagrant-chef-zero.png)](https://gemnasium.com/andrewgross/vagrant-chef-zero)
-[![Coverage Status](https://coveralls.io/repos/andrewgross/vagrant-chef-zero/badge.png)](https://coveralls.io/r/andrewgross/vagrant-chef-zero)
+[![Build Status](https://travis-ci.org/schubergphilis/vagrant-chef-zero.svg)](https://travis-ci.org/schubergphilis/vagrant-chef-zero)
+[![Code Climate](https://codeclimate.com/github/schubergphilis/vagrant-chef-zero.png)](https://codeclimate.com/github/schubergphilis/vagrant-chef-zero)
+[![Coverage Status](https://coveralls.io/repos/schubergphilis/vagrant-chef-zero/badge.png)](https://coveralls.io/r/schubergphilis/vagrant-chef-zero)
+[![Gem Version](https://badge.fury.io/rb/vagrant-chef-zero.svg)](http://badge.fury.io/rb/vagrant-chef-zero)
 
 This is a plugin designed to help integrate Chef-Zero into a Vagrant run, similar to Berkshelf.  Chef-Zero will be started on the host machine and populated with the specified data.  When the Vagrant machine is destroyed Chef-Zero will be killed.
 
@@ -57,7 +53,7 @@ config.chef_zero.chef_repo_path = "../foobar/my_repo/"
 
 As Vagrant is booting up, `vagrant-chef-zero` will search each specified location for files to upload to Chef-Zero.  The upload will be done via Ridley APIs.
 
-Check out the included [Vagrantfile](https://github.com/andrewgross/vagrant-chef-zero/blob/master/Vagrantfile) for example usage.
+Check out the included [Vagrantfile](https://github.com/schubergphilis/vagrant-chef-zero/blob/master/Vagrantfile) for example usage.
 
 ### Cookbooks
 
@@ -106,3 +102,5 @@ Not required.  As `Chef-Zero` does no authentication we can fake this.  If it is
 * Jesse Adams (@jesseadams)
 * Andrew Havens (@andrewhavens)
 * Bao Nguyen (@sysbot)
+* Miguel Ferreira (@miguelaferreira)
+* Timothy van Zadelhoff (@j00p34)
